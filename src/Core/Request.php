@@ -4,9 +4,9 @@ namespace It20Academy\App\Core;
 
 class Request
 {
-    private $controller = 'IndexController';
+    private string $controller = 'Index';
 
-    private $method = 'index';
+    private string $method = 'index';
 
     public function __construct()
     {
@@ -15,7 +15,7 @@ class Request
 
         // controller
         if (isset($uri[1]) && ! empty($uri[1])) {
-            $this->controller = ucfirst($uri[1]); // Posts
+            $this->controller = ucfirst($uri[1]);
         }
 
         // method

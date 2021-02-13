@@ -2,6 +2,8 @@
 
 namespace It20Academy\App\Models;
 
+use It20Academy\App\Core\Db;
+
 class Post
 {
     private $id;
@@ -14,25 +16,31 @@ class Post
 
     public static function all(): array
     {
+        $dbh = (new Db())->getHandler();
+
+        $statement  = $dbh->query('select * from posts');
+        $initialPosts = $statement->fetchAll();
+
         //$db = [];
-        $db = require_once '../storage/db.php';
+        //$db = require_once '../storage/db.php';
         //dump($db);
-        $posts = isset($db['posts']) ? $db['posts'] : [];
+        //$posts = isset($db['posts']) ? $db['posts'] : [];
 
         return array_map(function ($initialPost) {
+
             $post = new self;
 
             $post->setTitle($initialPost['title']);
             $post->setId($initialPost['id']);
             $post->setContent($initialPost['content']);
-            $post->setAuthor($initialPost['author']);
-            $post->setStatus($initialPost['status']);
-            $post->setCategory($initialPost['category']);
+            $post->setAuthor($initialPost['author_id']);
+            $post->setStatus($initialPost['status_id']);
+            $post->setCategory($initialPost['category_id']);
             $post->setImg($initialPost['img']);
 
             return $post;
 
-        }, $posts);
+        }, $initialPosts);
     }
 
 
@@ -104,5 +112,14 @@ class Post
     public function getImg()
     {
         return $this->img;
+    }
+
+    public function shortContent(int $maxSymbol): string
+    {
+        if (mb_strlen($this->getContent()) > $maxSymbol) {
+            return mb_substr($this->getContent(), 0, $maxSymbol-1) . '…';
+        } else {
+            return $this->getContent();
+        }
     }
 }
