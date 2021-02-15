@@ -5,7 +5,9 @@
  */
 
 $posts = $data['posts'];
-//dump($posts);
+dump($posts);
+$statuses = $data['statuses'];
+//dump($statuses);
 
 ?>
 
@@ -75,32 +77,33 @@ $posts = $data['posts'];
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php foreach ($posts as $post): ?>
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225"></img>
+<!--                    --><?php //foreach ($statuses as $status): ?>
+<!--                        --><?php //if ( ($post->getStatus() ===  $status->getId()) && ($status->getName() === 'published')): ?>
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225"></img>
+                                    <div class="card-body">
+                                        <h5 class="card-text"><a href=""><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategory(); ?></span></h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getAuthor(); ?></h6>
+            <!--                            <h6 class="card-subtitle mb-2 text-muted">Автор: --><?php //echo getShortNameAuthor($authors[$post['author']-1]['name']); ?><!--</h6>-->
+                                        <p class="card-text"><?php echo $post->shortContent(200); ?></p>
+                                        <div><a href="posts/<?php //echo $pagename; ?>" class="btn btn-primary">Читать дальше...</a></div><br>
+            <!--                            <p class="card-text">--><?php //echo truncateString($post['content'],200); ?><!--</p>-->
 
-                        <div class="card-body">
 
-                            <h5 class="card-text"><a href=""><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategory(); ?></span></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getAuthor(); ?></h6>
-<!--                            <h6 class="card-subtitle mb-2 text-muted">Автор: --><?php //echo getShortNameAuthor($authors[$post['author']-1]['name']); ?><!--</h6>-->
-                            <p class="card-text"><?php echo $post->shortContent(200); ?></p>
-                            <div><a href="posts/<?php //echo $pagename; ?>" class="btn btn-primary">Читать дальше...</a></div><br>
-<!--                            <p class="card-text">--><?php //echo truncateString($post['content'],200); ?><!--</p>-->
-
-
-<!--                            <div class="d-flex justify-content-between align-items-center">-->
-<!--                                <div class="btn-group">-->
-<!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
-<!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
-<!--                                </div>-->
-<!--                                <small class="text-muted">9 mins</small>-->
-<!--                            </div>-->
-
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach;?>
+            <!--                            <div class="d-flex justify-content-between align-items-center">-->
+            <!--                                <div class="btn-group">-->
+            <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+            <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+            <!--                                </div>-->
+            <!--                                <small class="text-muted">9 mins</small>-->
+            <!--                            </div>-->
+                                    </div>
+                                </div>
+                            </div>
+<!--                        --><?php //endif; ?>
+<!--                    --><?php //endforeach; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
