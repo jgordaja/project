@@ -10,6 +10,7 @@ class Request
 
     public function __construct()
     {
+        //dump($_SERVER);
         $uri = explode('/', $_SERVER['REQUEST_URI']);
         $uri = array_diff($uri, []);
 
@@ -30,7 +31,7 @@ class Request
 //        if (! class_exists("It20Academy\App\Controllers\\{$this->controller}Controller")) {
 //            dump("It20Academy\App\Controllers\\{$this->controller}Controller does not exists!");
         if (! class_exists($this->getController())) {
-            dump($this->getController()." does not exists!");
+            dump($this->getController() . " does not exists!");
 
             return false;
         }

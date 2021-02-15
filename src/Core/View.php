@@ -12,4 +12,5 @@ class View
             include $viewPath;
         }
     }
+
 }

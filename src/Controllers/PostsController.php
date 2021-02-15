@@ -3,23 +3,16 @@
 namespace It20Academy\App\Controllers;
 
 use It20Academy\App\Core\View;
-use It20Academy\App\Models\Post;
-use It20Academy\App\Models\Status;
-use It20Academy\App\Models\Category;
-use It20Academy\App\Models\Author;
+use It20Academy\App\Models\TablePosts;
 
 class PostsController
 {
     public function index()
     {
-        $posts = Post::all();
-        //$posts = Post::published();
-        $statuses = Status::all();
-        //$categories = Category::all();
-        //$authors = Author::all();
+        $posts = TablePosts::all();
 
-        //echo View::render('posts-index', compact('posts', 'statuses', 'categories', 'authors'));// ['posts' =>[]]
-        echo View::render('posts-index', compact('posts', 'statuses'));// ['posts' =>[]]
+        echo View::render('posts-index', compact('posts'));// ['posts' =>[]]
 
     }
+
 }

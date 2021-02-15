@@ -2,7 +2,7 @@
 
 namespace It20Academy\App\Models;
 
-use It20Academy\App\Core\Db;
+use It20Academy\App\Core\Connection;
 
 class Author
 {
@@ -11,7 +11,7 @@ class Author
 
     public static function all(): array
     {
-        $dbh = (new Db())->getHandler();
+        $dbh = (new Connection())->getHandler();
         $statement  = $dbh->query('select * from authors');
         $initialAuthors = $statement->fetchAll();
 

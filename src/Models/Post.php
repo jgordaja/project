@@ -2,24 +2,25 @@
 
 namespace It20Academy\App\Models;
 
-use It20Academy\App\Core\Db;
+use It20Academy\App\Core\Connection;
+use It20Academy\App\Core\QueryBuilder;
 
 class Post
 {
     private $id;
     private $title;
     private $content;
-    private $author_id;
-    private $author;
-    private $status;
-    private $status_id;
-    private $category_id;
-    private $category;
+    private $authorId;
+    private $statusId;
+    private $categoryId;
     private $img;
 
     public static function all(): array
     {
-        $dbh = (new Db())->getHandler();
+//        $queryBuilder = new QueryBuilder();
+//        $queryBuilder->select('*', 'posts');
+
+        $dbh = (new Connection())->getHandler();
 
         $statement  = $dbh->query('select * from posts');
         $initialPosts = $statement->fetchAll();
@@ -31,9 +32,9 @@ class Post
             $post->setTitle($initialPost['title']);
             $post->setId($initialPost['id']);
             $post->setContent($initialPost['content']);
-            $post->setAuthor($initialPost['author_id']);
-            $post->setStatus($initialPost['status_id']);
-            $post->setCategory($initialPost['category_id']);
+            $post->setAuthorId($initialPost['author_id']);
+            $post->setStatusId($initialPost['status_id']);
+            $post->setCategoryId($initialPost['category_id']);
             $post->setImg($initialPost['img']);
 
             return $post;
@@ -42,48 +43,13 @@ class Post
 
     }
 
-/*    public static function all(): array
-    {
-        $dbh = (new Db())->getHandler();
 
-        $allPosts  = $dbh->query("select posts.id, posts.title, posts.content, authors.name as author,  
-                                           posts.status_id, categories.name as category, posts.img 
-                                           from authors 
-                                           join posts 
-                                           on authors.id=posts.author_id
-                                           join categories
-                                           on posts.category_id=categories.id");
 
-        $initialAllPosts = $allPosts->fetchAll();
-        dump($initialAllPosts);
-
-        $p = array_map(function ($initialAllPost) {
-
-            $post = new self;
-
-            $post->setId($initialAllPost['id']);
-            $post->setTitle($initialAllPost['title']);
-            $post->setContent($initialAllPost['content']);
-            $post->setAuthor($initialAllPost['author']);
-            dump($post->getAuthor());
-            $post->setStatus($initialAllPost['status_id']);
-            $post->setCategory($initialAllPost['category']);
-            $post->setImg($initialAllPost['img']);
-
-            return $post;
-
-        }, $initialAllPosts);
-
-        dump('p= ',$p);
-        return $p;
-
-    }*/
-
-    public static function published(): array
+ /*   public static function published(): array
     {
         $statuses = Status::all();
         //$posts = Post::all();
-        $dbh = (new Db())->getHandler();
+        $dbh = (new Connection())->getHandler();
 
         $allPosts  = $dbh->query("select posts.id, posts.title, posts.content, authors.name as author,  
                                            posts.status_id, categories.name as category, posts.img 
@@ -94,7 +60,7 @@ class Post
                                            on posts.category_id=categories.id");
 
         $initialAllPosts = $allPosts->fetchAll();
-        dump($initialAllPosts);
+        //dump($initialAllPosts);
 
         $posts = array_map(function ($initialAllPost) {
 
@@ -129,42 +95,31 @@ class Post
 
         return  $publishedPosts;
 
-/*        $dbh = (new Db())->getHandler();
-
-        $statement  = $dbh->query("select posts.id, posts.title, posts.content, posts.author_id,
-                                            statuses.name as status, posts.category_id, posts.img
-                                            from posts join statuses on posts.status_id=statuses.id
-                                            where statuses.name='published'");
-        $initialPosts = $statement->fetchAll();
-        dump($initialPosts);
-
-        return array_map(function ($initialPost) {
-
-            $post = new self;
-
-            $post->setTitle($initialPost['title']);
-            $post->setId($initialPost['id']);
-            $post->setContent($initialPost['content']);
-            $post->setAuthor($initialPost['author_id']);
-            $post->setStatus($initialPost['status']);
-            $post->setCategory($initialPost['category_id']);
-            $post->setImg($initialPost['img']);
-
-            return $post;
-
-        }, $initialPosts);*/
-    }
-
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
+//        $dbh = (new Connection())->getHandler();
+//
+//        $statement  = $dbh->query("select posts.id, posts.title, posts.content, posts.author_id,
+//                                            statuses.name as status, posts.category_id, posts.img
+//                                            from posts join statuses on posts.status_id=statuses.id
+//                                            where statuses.name='published'");
+//        $initialPosts = $statement->fetchAll();
+//        dump($initialPosts);
+//
+//        return array_map(function ($initialPost) {
+//
+//            $post = new self;
+//
+//            $post->setTitle($initialPost['title']);
+//            $post->setId($initialPost['id']);
+//            $post->setContent($initialPost['content']);
+//            $post->setAuthor($initialPost['author_id']);
+//            $post->setStatus($initialPost['status']);
+//            $post->setCategory($initialPost['category_id']);
+//            $post->setImg($initialPost['img']);
+//
+//            return $post;
+//
+//        }, $initialPosts);
+    }*/
 
     public function setId(int $id): void
     {
@@ -174,6 +129,16 @@ class Post
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     public function setContent(string $content): void
@@ -186,35 +151,36 @@ class Post
         return $this->content;
     }
 
-    public function setAuthor($author): void
+    public function setAuthorId(int $authorId): void
     {
-        $this->author_id = $author;
+        $this->authorId = $authorId;
     }
 
-    public function getAuthor()
+    public function getAuthorID()
     {
-        return $this->author;
+        return $this->authorId;
     }
 
-    public function setStatus($status): void
+    public function setStatusId(int $statusId): void
     {
-        $this->status_id = $status;
+        $this->statusId = $statusId;
     }
 
-    public function getStatus()
+    public function getStatusId()
     {
-        return $this->status;
+        return $this->statusId;
     }
 
-    public function setCategory($category): void
+    public function setCategoryId(int $categoryId): void
     {
-        $this->category_id = $category;
+        $this->categoryId = $categoryId;
     }
 
-    public function getCategory()
+    public function getCategoryId()
     {
-        return $this->category;
+        return $this->categoryId;
     }
+
 
     public function setImg(string $img): void
     {

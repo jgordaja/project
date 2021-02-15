@@ -4,7 +4,7 @@ namespace It20Academy\App\Core;
 
 use PDO;
 
-class Db
+class Connection
 {
     private PDO $handler;
 

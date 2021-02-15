@@ -5,9 +5,17 @@
  */
 
 $posts = $data['posts'];
-dump($posts);
-$statuses = $data['statuses'];
-//dump($statuses);
+
+//функция для вывода даты русскими словами
+
+function rusDayOfWeek() {
+
+    $nowDate = date('w');
+    $arrayDay = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+
+    return $arrayDay[$nowDate-1];
+
+}
 
 ?>
 
@@ -62,7 +70,8 @@ $statuses = $data['statuses'];
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Album example</h1>
+                <h1 class="fw-light">Today <?php echo date('l', strtotime('now')); ?></h1>
+                <h1 class="fw-light">Сегодня <?php echo rusDayOfWeek(); ?></h1>
                 <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
                 <p>
                     <a href="#" class="btn btn-primary my-2">Main call to action</a>
@@ -77,36 +86,46 @@ $statuses = $data['statuses'];
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <?php foreach ($posts as $post): ?>
-<!--                    --><?php //foreach ($statuses as $status): ?>
-<!--                        --><?php //if ( ($post->getStatus() ===  $status->getId()) && ($status->getName() === 'published')): ?>
-                            <div class="col">
-                                <div class="card shadow-sm">
-                                    <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225"></img>
-                                    <div class="card-body">
-                                        <h5 class="card-text"><a href=""><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategory(); ?></span></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getAuthor(); ?></h6>
-            <!--                            <h6 class="card-subtitle mb-2 text-muted">Автор: --><?php //echo getShortNameAuthor($authors[$post['author']-1]['name']); ?><!--</h6>-->
-                                        <p class="card-text"><?php echo $post->shortContent(200); ?></p>
-                                        <div><a href="posts/<?php //echo $pagename; ?>" class="btn btn-primary">Читать дальше...</a></div><br>
-            <!--                            <p class="card-text">--><?php //echo truncateString($post['content'],200); ?><!--</p>-->
-
-
-            <!--                            <div class="d-flex justify-content-between align-items-center">-->
-            <!--                                <div class="btn-group">-->
-            <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
-            <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
-            <!--                                </div>-->
-            <!--                                <small class="text-muted">9 mins</small>-->
-            <!--                            </div>-->
-                                    </div>
+                    <?php if ( ($post->getStatusName()  === 'published')): ?>
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="<?php echo $post->altImg(); ?>">
+                                <div class="card-body">
+                                    <h5 class="card-text"><a href="<?php echo $pagename=$post->slug($post->getTitle()); ?>"><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategoryName(); ?></span></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getShortAuthorName(); ?></h6>
+                                    <p class="card-text"><?php echo $post->shortContent(200); ?></p>
+                                    <div><a href="posts/<?php echo $pagename; ?>" class="btn btn-primary">Читать дальше...</a></div><br>
+        <!--                            <div class="d-flex justify-content-between align-items-center">-->
+        <!--                                <div class="btn-group">-->
+        <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+        <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+        <!--                                </div>-->
+        <!--                                <small class="text-muted">9 mins</small>-->
+        <!--                            </div>-->
                                 </div>
                             </div>
-<!--                        --><?php //endif; ?>
-<!--                    --><?php //endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>
     </div>
+
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 
 </main>
 
@@ -115,7 +134,7 @@ $statuses = $data['statuses'];
         <p class="float-end mb-1">
             <a href="#">Back to top</a>
         </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p class="mb-1">&copy; <?php echo date('Y'); ?></p>
         <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
     </div>
 </footer>
