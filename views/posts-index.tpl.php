@@ -95,13 +95,6 @@ function rusDayOfWeek() {
                                     <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getShortAuthorName(); ?></h6>
                                     <p class="card-text"><?php echo $post->shortContent(200); ?></p>
                                     <div><a href="posts/<?php echo $pagename; ?>" class="btn btn-primary">Читать дальше...</a></div><br>
-        <!--                            <div class="d-flex justify-content-between align-items-center">-->
-        <!--                                <div class="btn-group">-->
-        <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
-        <!--                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
-        <!--                                </div>-->
-        <!--                                <small class="text-muted">9 mins</small>-->
-        <!--                            </div>-->
                                 </div>
                             </div>
                         </div>

@@ -3,9 +3,11 @@
 namespace It20Academy\App\Models;
 
 use It20Academy\App\Core\Connection;
+use It20Academy\App\Models\Post;
 
 class TablePosts
 {
+    protected $table = 'posts';
     private $id;
     private $title;
     private $content;
@@ -20,6 +22,14 @@ class TablePosts
     public static function all(): array
     {
         $dbh = (new Connection())->getHandler();
+
+
+
+
+Post::all();
+
+
+
 
         $allPosts  = $dbh->query("select posts.id, posts.title, posts.content, posts.author_id, authors.name as author,  
                                            posts.status_id, statuses.name as status, posts.category_id, categories.name as category, posts.img 
@@ -51,6 +61,19 @@ class TablePosts
             return $post;
 
         }, $initialAllPosts);
+    }
+
+    /**
+     * @param string $table
+     */
+    public function setTable(string $table): void
+    {
+        $this->table = $table;
+    }
+
+    public function getTable(): string
+    {
+        return $this->table;
     }
 
     public function setId(int $id): void
@@ -196,6 +219,7 @@ class TablePosts
             'ь' => '',    'ы' => 'y',   'ъ' => '',
             'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
         );
+
         return strtr($string, $converter);
     }
 

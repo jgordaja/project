@@ -10,11 +10,11 @@ class QueryBuilder
         //$dbh = (new Connection())->getHandler();
     }
 
-    public function select(string $field): string
+    public function select(string $field, string $table): string
     {
         //$dbh = (new Connection())->getHandler();
 
-//        $statement  = $dbh->query('select * from posts');
+//        $statement  = $dbh->query('select $field from $table');
 //        $initialPosts = $statement->fetchAll();
 
 //        return array_map(function ($initialPost) {

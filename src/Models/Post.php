@@ -7,6 +7,7 @@ use It20Academy\App\Core\QueryBuilder;
 
 class Post
 {
+    //protected $table = 'posts';
     private $id;
     private $title;
     private $content;
@@ -23,7 +24,9 @@ class Post
         $dbh = (new Connection())->getHandler();
 
         $statement  = $dbh->query('select * from posts');
+        //$statement  = $dbh->query('select * from $table');
         $initialPosts = $statement->fetchAll();
+        //dump($initialPosts);
 
         return array_map(function ($initialPost) {
 
@@ -42,8 +45,6 @@ class Post
         }, $initialPosts);
 
     }
-
-
 
  /*   public static function published(): array
     {
