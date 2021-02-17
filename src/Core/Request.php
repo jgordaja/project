@@ -4,18 +4,19 @@ namespace It20Academy\App\Core;
 
 class Request
 {
-    private $controller = 'IndexController';
+    private string $controller = 'Index';
 
-    private $method = 'index';
+    private string $method = 'index';
 
     public function __construct()
     {
+        //dump($_SERVER);
         $uri = explode('/', $_SERVER['REQUEST_URI']);
         $uri = array_diff($uri, []);
 
         // controller
         if (isset($uri[1]) && ! empty($uri[1])) {
-            $this->controller = ucfirst($uri[1]); // Posts
+            $this->controller = ucfirst($uri[1]);
         }
 
         // method
@@ -30,7 +31,7 @@ class Request
 //        if (! class_exists("It20Academy\App\Controllers\\{$this->controller}Controller")) {
 //            dump("It20Academy\App\Controllers\\{$this->controller}Controller does not exists!");
         if (! class_exists($this->getController())) {
-            dump($this->getController()." does not exists!");
+            dump($this->getController() . " does not exists!");
 
             return false;
         }

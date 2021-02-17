@@ -2,14 +2,17 @@
 
 namespace It20Academy\App\Controllers;
 
-use It20Academy\App\Models\Post;
+use It20Academy\App\Core\View;
+use It20Academy\App\Models\TablePosts;
 
 class PostsController
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = TablePosts::all();
 
-        dump($posts);
+        echo View::render('posts-index', compact('posts'));// ['posts' =>[]]
+
     }
+
 }
