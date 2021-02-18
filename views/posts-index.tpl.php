@@ -28,8 +28,13 @@ function rusDayOfWeek() {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+<!--    <link rel="stylesheet" href="css/main.css">-->
     <title>Posts</title>
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 
@@ -104,7 +109,11 @@ function rusDayOfWeek() {
         </div>
     </div>
 
-    <nav aria-label="...">
+    <div class="col-12">
+        <a href="/posts/create" class="btn btn-primary" style="box-sizing: border-box; display: block; width: 170px; margin: 10px auto;">Добавить новость</a>
+    </div>
+
+    <!--nav aria-label="...">
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -118,7 +127,7 @@ function rusDayOfWeek() {
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+    </nav-->
 
 </main>
 
