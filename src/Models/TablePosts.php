@@ -223,4 +223,11 @@ class TablePosts
         return $output.'.html';
     }
 
+    public function passGetImage()
+    {
+
+        return "/uploads/{$this->getImg()}";
+
+    }
+
 }

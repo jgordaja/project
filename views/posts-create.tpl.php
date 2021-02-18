@@ -75,7 +75,7 @@ $statuses = $data['statuses'];
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <form method="POST" action="/posts/store" enctype="multipart/form-data" id="new-post-form">
+            <form method="POST" action="/posts" enctype="multipart/form-data" id="new-post-form">
 <!--            <form method="POST" action="/posts/store" enctype="multipart/form-data" id="new-post-form" onsubmit="return validateForm()">-->
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label">Заголовок статьи</label>

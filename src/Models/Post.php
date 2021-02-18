@@ -125,4 +125,6 @@ class Post
             return $this->getContent();
         }
     }
+
+
 }

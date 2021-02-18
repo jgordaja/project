@@ -94,7 +94,7 @@ function rusDayOfWeek() {
                     <?php if ( ($post->getStatusName()  === 'published')): ?>
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="<?php echo $post->altImg(); ?>">
+                                <img src="<?php echo $post->passGetImage(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="<?php echo $post->altImg(); ?>">
                                 <div class="card-body">
                                     <h5 class="card-text"><a href="<?php echo $pagename=$post->slug($post->getTitle()); ?>"><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategoryName(); ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getShortAuthorName(); ?></h6>

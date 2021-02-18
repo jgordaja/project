@@ -41,7 +41,7 @@ class PostsController
         //$destination = __DIR__ . './../../storage/uploads';//было
         $destination = __DIR__ . "{$uploadsConfig['path']}";
 
-dump(__DIR__);//"C:\OpenServer\domains\project\src\Controllers"
+//__DIR__ //"C:\OpenServer\domains\project\src\Controllers"
 dump($destination); //"C:\OpenServer\domains\project\src\Controllers./../../storage/uploads"
 dump($_FILES);
 //array:1 [▼
