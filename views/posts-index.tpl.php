@@ -17,6 +17,17 @@ function rusDayOfWeek() {
 
 }
 
+function dayOfWeek() {
+
+    //return date('l', strtotime('tomorrow')); - английскими
+
+    $nowDate = date('w');
+    $arrayDay = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+
+    return $arrayDay[$nowDate-1];
+
+}
+
 ?>
 
 <!doctype html>
@@ -112,22 +123,6 @@ function rusDayOfWeek() {
     <div class="col-12">
         <a href="/posts/create" class="btn btn-primary" style="box-sizing: border-box; display: block; width: 170px; margin: 10px auto;">Добавить новость</a>
     </div>
-
-    <!--nav aria-label="...">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav-->
 
 </main>
 

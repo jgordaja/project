@@ -7,15 +7,14 @@ use It20Academy\App\Core\Connection;
 use It20Academy\App\Core\View;
 use It20Academy\App\Models\Author;
 use It20Academy\App\Models\Category;
-use It20Academy\App\Models\Status;
-use It20Academy\App\Models\TablePosts;
 use It20Academy\App\Models\Post;
+use It20Academy\App\Models\Status;
 
 class PostsController
 {
     public function index()
     {
-        $posts = TablePosts::all();
+        $posts = Post::all();
 
         echo View::render('posts-index', compact('posts'));// ['posts' =>[]]
 
@@ -23,12 +22,13 @@ class PostsController
 
     public function create()
     {
-        $authors = Author::all();
-        $categories = Category::all();
-        $statuses = Status::all();
-        $posts = Post::all();
 
-        echo View::render('posts-create', compact('authors', 'categories','statuses','posts'));
+        $posts = Post::all();
+        $authors = Author::all();
+        $statuses = Status::all();
+        $categories = Category::all();
+
+        echo View::render('posts-create', compact('posts', 'categories', 'authors', 'statuses'));
     }
 
     public function store()
@@ -37,29 +37,15 @@ class PostsController
         $uploadsConfig = $config->get('uploads');
 
         //Определяем место сохранения загруженного файла и его имя
-
-        //$destination = __DIR__ . './../../storage/uploads';//было
-        $destination = __DIR__ . "{$uploadsConfig['path']}";
-
-//__DIR__ //"C:\OpenServer\domains\project\src\Controllers"
-dump($destination); //"C:\OpenServer\domains\project\src\Controllers./../../storage/uploads"
-dump($_FILES);
-//array:1 [▼
-//  "img" => array:5 [▼
-//    "name" => "front-z-400.jpg"
-//    "type" => "image/jpeg"
-//    "tmp_name" => "C:\OpenServer\userdata\php_upload\php438A.tmp"
-//    "error" => 0
-//    "size" => 18636
-//  ]
-//]
+        $destination = "{$uploadsConfig['path']}";//'/uploads'
 
         $fileTempName = $_FILES['img']['tmp_name'];//
+        $newFilename = "";
 
         if (is_uploaded_file($fileTempName)) {
             //Проверяем тип файла и меняем его имя в соответствии
 
-            $name = ltrim(strrchr($fileTempName, '\\'),'\\'). "_{$_FILES['img']['name']}";
+            $name = "{$_FILES['img']['name']}";
             $newFilename = $destination .'/user';
 
             switch ($_FILES['img']['type']) {
@@ -75,32 +61,22 @@ dump($_FILES);
             }
 
             //Перемещаем файл из временной папки в указанную
-            if (move_uploaded_file($fileTempName, $newFilename)) {
+            if (move_uploaded_file($fileTempName, "../public/$newFilename")) {
                 echo 'Файл сохранен под именем '. $newFilename;
                 //Файл сохранен под именем
-                // C:\OpenServer\domains\project\src\Controllers./../../storage/uploads/user-phpA2F4.tmp_front-z-400.jpg
 
             } else {
-                echo 'Не удалось осуществить сохранение файла';
+                echo "Не удалось осуществить сохранение файла";
+                echo $newFilename; // /uploads/user-2.jpg
             }
         } else {
             echo 'Файл не был загружен на сервер';
+
         }
 
         $_POST["img"] = $newFilename;
 
-dump($_POST);
-//array:6 [▼
-//  "title" => "tythjkn"
-//  "content" => "rtygujk"
-//  "author_id" => "1"
-//  "status_id" => "1"
-//  "category_id" => "2"
-//  "img" => "C:\OpenServer\domains\project\src\Controllers./../../storage/uploads/user-php4132.tmp_front-z-400.jpg"
-//]
-
         $dbh = (new Connection())->getHandler();
-
         $values = array();
 
         function pdoSet($allowed, &$values, $source = array()) {
@@ -115,7 +91,6 @@ dump($_POST);
             }
             return substr($set, 0, -2);
         }
-dump($values);
 
         $allowed = array("title","content","author_id", "status_id", "category_id", "img"); // allowed fields
 

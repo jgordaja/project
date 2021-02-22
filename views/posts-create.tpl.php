@@ -3,11 +3,11 @@
 /**
  * @var array $data
  */
+
 $posts = $data['posts'];
 $authors = $data['authors'];
-$categories = $data['categories'];
 $statuses = $data['statuses'];
-//dump($post);
+$categories = $data['categories'];
 
 ?>
 
@@ -75,8 +75,7 @@ $statuses = $data['statuses'];
     <div class="album py-5 bg-light">
         <div class="container">
 
-            <form method="POST" action="/posts" enctype="multipart/form-data" id="new-post-form">
-<!--            <form method="POST" action="/posts/store" enctype="multipart/form-data" id="new-post-form" onsubmit="return validateForm()">-->
+            <form method="POST" action="/posts/store" enctype="multipart/form-data" id="new-post-form">
                 <div class="row mb-3">
                     <label for="title" class="col-sm-2 col-form-label">Заголовок статьи</label>
                     <div class="col-sm-10">
@@ -131,7 +130,6 @@ $statuses = $data['statuses'];
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Загрузить картинку</label>
-<!--                    <input class="form-control" multiple type="file" id="formFile" name="file_name[]">-->
                     <input class="form-control" type="file" id="formFile" name="img">
                 </div>
                 <button type="submit" class="btn btn-primary center">Добавить</button>
