@@ -17,6 +17,17 @@ function rusDayOfWeek() {
 
 }
 
+function dayOfWeek() {
+
+    //return date('l', strtotime('tomorrow')); - английскими
+
+    $nowDate = date('w');
+    $arrayDay = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+
+    return $arrayDay[$nowDate-1];
+
+}
+
 ?>
 
 <!doctype html>
@@ -28,8 +39,13 @@ function rusDayOfWeek() {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
+<!--    <link rel="stylesheet" href="css/main.css">-->
     <title>Posts</title>
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 
@@ -89,7 +105,7 @@ function rusDayOfWeek() {
                     <?php if ( ($post->getStatusName()  === 'published')): ?>
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="<?php echo $post->getImg(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="<?php echo $post->altImg(); ?>">
+                                <img src="<?php echo $post->passGetImage(); ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="<?php echo $post->altImg(); ?>">
                                 <div class="card-body">
                                     <h5 class="card-text"><a href="<?php echo $pagename=$post->slug($post->getTitle()); ?>"><?php echo $post->getTitle(); ?></a> <span class="badge bg-secondary"><?php echo $post->getCategoryName(); ?></span></h5>
                                     <h6 class="card-subtitle mb-2 text-muted">Автор: <?php echo $post->getShortAuthorName(); ?></h6>
@@ -104,21 +120,9 @@ function rusDayOfWeek() {
         </div>
     </div>
 
-    <nav aria-label="...">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="col-12">
+        <a href="/posts/create" class="btn btn-primary" style="box-sizing: border-box; display: block; width: 170px; margin: 10px auto;">Добавить новость</a>
+    </div>
 
 </main>
 
